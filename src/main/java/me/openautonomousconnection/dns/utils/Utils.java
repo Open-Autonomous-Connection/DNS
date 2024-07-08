@@ -7,11 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Utils {
-    public static String DATABASE_HOST = "127.0.0.1:3306";
-    public static String DATABASE_NAME = "open_autonomous_connection";
-    public static String DATABASE_USERNAME = "root";
-    public static String DATABASE_PASSWORD = "AbgeNickt!312123";
-
     public static String createAccessKey(String input) {
         return sha256(shuffleString(sha256(input) + getAlphaNumericString(5) +
                 sha256(getAlphaNumericString(5)) +

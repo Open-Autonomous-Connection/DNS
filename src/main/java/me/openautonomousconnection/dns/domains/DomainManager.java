@@ -11,14 +11,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DomainManager {
+    public static final Pattern DOMAIN_PATTERN = Pattern.compile("^(?!-)[A-Za-z0-9-]{1,63}(?<!-)$");
+
     public static boolean domainExists(RequestDomain domain) throws SQLException {
         for (Domain registeredDomain : getDomains())
             if (registeredDomain.name.equalsIgnoreCase(domain.name) &&
                     registeredDomain.topLevelDomain.equalsIgnoreCase(domain.topLevelDomain)) return true;
 
         return false;
+    }
+
+    public static boolean isValidDomain(String domainName) {
+        return DOMAIN_PATTERN.matcher(domainName).matches();
     }
 
     public static boolean domainExists(Domain domain) throws SQLException {
@@ -30,6 +37,7 @@ public class DomainManager {
         if (!TLDManager.topLevelDomainExists(domain.topLevelDomain)) return;
         if (domain.name.length() > 10) return;
         if (!Config.domainRegisteringAllowed()) return;
+        if (!isValidDomain(domain.name)) return;
 
         PreparedStatement statement = Database.getConnection().prepareStatement("INSERT INTO domains (name, topleveldomain, destination, accesskey) VALUES (?, ?, ?, ?)");
         statement.setString(1, domain.name.toLowerCase());

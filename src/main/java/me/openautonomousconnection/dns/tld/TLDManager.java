@@ -8,8 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TLDManager {
+    public static final Pattern TOP_LEVEL_DOMAIN_PATTERN = Pattern.compile("^[A-Za-z]{2,6}$");
+
+    public static boolean isValidTopLevelDomain(String tld) {
+        return TOP_LEVEL_DOMAIN_PATTERN.matcher(tld).matches();
+    }
+
     public static boolean topLevelDomainExists(String topLevelDomain) throws SQLException {
         return getTopLevelDomains().contains(topLevelDomain);
     }
@@ -18,6 +25,7 @@ public class TLDManager {
         if (topLevelDomainExists(topLevelDomain)) return;
         if (topLevelDomain.length() > 10) return;
         if (!Config.topLevelDomainRegisteringAllowed()) return;
+        if (!isValidTopLevelDomain(topLevelDomain)) return;
 
         PreparedStatement statement = Database.getConnection().prepareStatement("INSERT INTO topleveldomains (name, accesskey) VALUES (?, ?)");
         statement.setString(1, topLevelDomain.toLowerCase());

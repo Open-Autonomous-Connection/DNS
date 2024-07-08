@@ -1,5 +1,6 @@
 package me.openautonomousconnection.dns;
 
+import me.openautonomousconnection.dns.utils.Config;
 import me.openautonomousconnection.dns.utils.Database;
 import me.openautonomousconnection.protocol.ProtocolBridge;
 import me.openautonomousconnection.protocol.ProtocolSettings;
@@ -43,20 +44,19 @@ public class Main {
             System.out.println();
         }
 
-        int port = 9382;
-
-        final ProtocolSettings protocolSettings = new ProtocolSettings();
-        protocolSettings.port = port;
-
         try {
+            Config.init();
             Database.connect();
-        } catch (SQLException | InstantiationException | ClassNotFoundException | IllegalAccessException exception) {
+        } catch (SQLException | InstantiationException | ClassNotFoundException | IllegalAccessException | IOException exception) {
             exception.printStackTrace();
             return;
         }
 
+        final ProtocolSettings protocolSettings = new ProtocolSettings();
+        protocolSettings.port = Config.getPort();
+
         try {
-            protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server(10));
+            protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server(Config.getPingTimeSeconds()));
             protocolBridge.getProtocolServer().setProtocolBridge(protocolBridge);
 
             protocolBridge.getProtocolServer().startServer();
