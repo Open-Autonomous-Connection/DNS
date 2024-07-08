@@ -17,14 +17,14 @@
 
     <repositories>
         <repository>
-            <id>github</id>
+            <id>oac-github</id>
             <url>https://maven.pkg.github.com/open-autonomous-connection/protocol</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
-            <id>github</id>
+            <id>unlegit-github</id>
             <url>https://maven.pkg.github.com/unlegitdqrk/unlegitlibrary</url>
             <snapshots>
                 <enabled>true</enabled>
