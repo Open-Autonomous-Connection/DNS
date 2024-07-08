@@ -1,17 +1,9 @@
 package me.openautonomousconnection.dns;
 
-import me.finn.libraries.eventsystem.EventManager;
-import me.finn.libraries.networksystem.packets.PacketHandler;
-import me.finn.libraries.networksystem.server.NetworkServer;
-import me.openautonomousconnection.dns.listeners.DomainListener;
-import me.openautonomousconnection.dns.listeners.MessageListener;
-import me.openautonomousconnection.dns.listeners.PingListener;
-import me.openautonomousconnection.dns.listeners.TopLevelDomainListener;
 import me.openautonomousconnection.dns.utils.Database;
-import me.openautonomousconnection.protocol.packets.DomainPacket;
-import me.openautonomousconnection.protocol.packets.MessagePacket;
-import me.openautonomousconnection.protocol.packets.PingPacket;
-import me.openautonomousconnection.protocol.packets.TopLevelDomainPacket;
+import me.openautonomousconnection.protocol.ProtocolBridge;
+import me.openautonomousconnection.protocol.ProtocolSettings;
+import me.openautonomousconnection.protocol.ProtocolVersion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +16,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 
 public class Main {
-    public static NetworkServer server;
+    public static ProtocolBridge protocolBridge;
 
     public static void main(String[] args) {
         try {
@@ -53,30 +45,8 @@ public class Main {
 
         int port = 9382;
 
-        final PacketHandler packetHandler = new PacketHandler();
-
-        try {
-            packetHandler.registerPacket(DomainPacket.class);
-            packetHandler.registerPacket(TopLevelDomainPacket.class);
-            packetHandler.registerPacket(PingPacket.class);
-            packetHandler.registerPacket(MessagePacket.class);
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException |
-                 InstantiationException exception) {
-            exception.printStackTrace();
-            return;
-        }
-
-        EventManager.registerListener(new DomainListener());
-        EventManager.registerListener(new MessageListener());
-        EventManager.registerListener(new PingListener());
-        EventManager.registerListener(new TopLevelDomainListener());
-
-        if (args.length > 1) if (args[0].equals("--port")) port = Integer.parseInt(args[1]);
-
-        server = new NetworkServer.ServerBuilder().
-                setPort(port).setPacketHandler(packetHandler).
-                enableAutoRestart().enableDebugLog().
-                build();
+        final ProtocolSettings protocolSettings = new ProtocolSettings();
+        protocolSettings.port = port;
 
         try {
             Database.connect();
@@ -86,15 +56,19 @@ public class Main {
         }
 
         try {
-            server.start();
-        } catch (IOException | InterruptedException exception) {
+            protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server(10));
+            protocolBridge.getProtocolServer().setProtocolBridge(protocolBridge);
+
+            protocolBridge.getProtocolServer().startServer();
+        } catch (IOException | InterruptedException | InvocationTargetException | NoSuchMethodException |
+                 InstantiationException | IllegalAccessException exception) {
             exception.printStackTrace();
             return;
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                server.stop();
+                protocolBridge.getProtocolServer().stopServer();
                 Database.close();
             } catch (SQLException | IOException exception) {
                 exception.printStackTrace();

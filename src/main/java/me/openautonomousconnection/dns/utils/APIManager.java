@@ -1,7 +1,7 @@
 package me.openautonomousconnection.dns.utils;
 
 import me.openautonomousconnection.dns.account.AccountManager;
-import me.openautonomousconnection.protocol.APIInformation;
+import me.openautonomousconnection.protocol.utils.APIInformation;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
