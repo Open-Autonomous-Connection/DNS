@@ -58,7 +58,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fully.qualified.MainClass</mainClass>
+                            <mainClass>me.openautonomousconnection.dns.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
