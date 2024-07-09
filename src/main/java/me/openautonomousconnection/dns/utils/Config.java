@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) 2024 Open Autonomous Connection - All Rights Reserved
+ *
+ * You are unauthorized to remove this copyright.
+ * You have to give Credits to the Author in your project and link this GitHub site: https://github.com/Open-Autonomous-Connection
+ * See LICENSE-File if exists
+ */
+
 package me.openautonomousconnection.dns.utils;
 
 import me.finn.unlegitlibrary.file.ConfigurationManager;
@@ -56,6 +64,7 @@ public class Config {
 
         if (!config.isSet("port")) config.set("port", 9382);
         if (!config.isSet("ping_time_seconds")) config.set("ping_time_seconds", 10);
+        if (!config.isSet("info_site")) config.set("info_site", "DNS SERVER NEED A INFO SITE!");
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
         if (!config.isSet("database.port")) config.set("database.port", 3306);
         if (!config.isSet("database.name")) config.set("database.name", "open_autonomous_connection");
@@ -63,6 +72,10 @@ public class Config {
         if (!config.isSet("database.password")) config.set("database.password", "my_password");
 
         config.saveProperties();
+    }
+
+    public static String getInfoSite() {
+        return config.getString("info_site");
     }
 
     public static int getPort() {

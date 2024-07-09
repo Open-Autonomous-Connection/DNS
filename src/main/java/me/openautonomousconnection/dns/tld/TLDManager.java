@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) 2024 Open Autonomous Connection - All Rights Reserved
+ *
+ * You are unauthorized to remove this copyright.
+ * You have to give Credits to the Author in your project and link this GitHub site: https://github.com/Open-Autonomous-Connection
+ * See LICENSE-File if exists
+ */
+
 package me.openautonomousconnection.dns.tld;
 
 import me.openautonomousconnection.dns.utils.Config;
@@ -18,28 +26,8 @@ public class TLDManager {
     }
 
     public static boolean topLevelDomainExists(String topLevelDomain) throws SQLException {
+        if (topLevelDomain.equalsIgnoreCase("oac")) return true;
         return getTopLevelDomains().contains(topLevelDomain);
-    }
-
-    public static void createTopLevelDomain(String topLevelDomain, String accessKey) throws SQLException {
-        if (topLevelDomainExists(topLevelDomain)) return;
-        if (topLevelDomain.length() > 10) return;
-        if (!Config.topLevelDomainRegisteringAllowed()) return;
-        if (!isValidTopLevelDomain(topLevelDomain)) return;
-
-        PreparedStatement statement = Database.getConnection().prepareStatement("INSERT INTO topleveldomains (name, accesskey) VALUES (?, ?)");
-        statement.setString(1, topLevelDomain.toLowerCase());
-        statement.setString(2, accessKey);
-        statement.executeUpdate();
-    }
-
-    public static void deleteTopLevelDomain(String topLevelDomain, String accessKey) throws SQLException {
-        if (!TLDManager.topLevelDomainExists(topLevelDomain)) return;
-
-        PreparedStatement statement = Database.getConnection().prepareStatement("DELETE FROM topleveldomains WHERE name = ? AND accesskey = ?");
-        statement.setString(1, topLevelDomain);
-        statement.setString(2, accessKey);
-        statement.executeUpdate();
     }
 
     public static List<String> getTopLevelDomains() throws SQLException {
