@@ -9,7 +9,7 @@ Discord: https://discord.gg/ef8cyW4t7p
 
 # Bugs/Problems
 - Is a API-Key necasary for resolving Domains?
-- Hosting Registrar and API Site on WWW or OAC?
+- Update check does not work
 # In progress
 - Cleanup Code
 # TODO
