@@ -72,7 +72,7 @@ public class Config {
 
         if (!config.isSet("port")) config.set("port", 9382);
         if (!config.isSet("ping_time_seconds")) config.set("ping_time_seconds", 10);
-        if (!config.isSet("sites.info")) config.set("info_site", "DNS SERVER NEED A INFO SITE!");
+        if (!config.isSet("sites.info")) config.set("sites.info", "DNS SERVER NEED A INFO SITE!");
         if (!config.isSet("sites.interface")) config.set("sites.interface", ip);
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
         if (!config.isSet("database.port")) config.set("database.port", 3306);
