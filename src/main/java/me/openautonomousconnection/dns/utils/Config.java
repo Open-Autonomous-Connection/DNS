@@ -64,7 +64,9 @@ public class Config {
 
         if (!config.isSet("port")) config.set("port", 9382);
         if (!config.isSet("ping_time_seconds")) config.set("ping_time_seconds", 10);
-        if (!config.isSet("info_site")) config.set("info_site", "DNS SERVER NEED A INFO SITE!");
+        if (!config.isSet("sites.info")) config.set("info_site", "DNS SERVER NEED A INFO SITE!");
+        if (!config.isSet("sites.interface.name")) config.set("sites.interface.name", "ONLY NAME, NO TOP LEVEL DOMAIN!");
+        if (!config.isSet("sites.interface.destination")) config.set("sites.interface.destination", "127.0.0.1");
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
         if (!config.isSet("database.port")) config.set("database.port", 3306);
         if (!config.isSet("database.name")) config.set("database.name", "open_autonomous_connection");
@@ -75,7 +77,15 @@ public class Config {
     }
 
     public static String getInfoSite() {
-        return config.getString("info_site");
+        return config.getString("sites.info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+    }
+
+    public static String getInterfaceSiteName() {
+        return config.getString("sites.interface.name");
+    }
+
+    public static String getInterfaceSiteDestination() {
+        return config.getString("sites.interface.destination").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
     }
 
     public static int getPort() {
@@ -87,7 +97,7 @@ public class Config {
     }
 
     public static String getDatabaseHost() {
-        return config.getString("database.host");
+        return config.getString("database.host").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
     }
 
     public static int getDatabasePort() {

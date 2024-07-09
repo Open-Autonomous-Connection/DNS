@@ -59,18 +59,19 @@ public class DomainManager {
         while (result.next()) {
             String name = result.getString("name");
             String topLevelDomain = result.getString("topleveldomain");
-            String destination = result.getString("destination");
+            String destination = result.getString("destination").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
             domains.add(new Domain(name, topLevelDomain, destination));
         }
 
         ResultSet resultSet = Database.getConnection().prepareStatement("SELECT name, info FROM topleveldomains").executeQuery();
         while (resultSet.next()) {
             String topLevelDomain = resultSet.getString("name");
-            String destination = resultSet.getString("info");
+            String destination = resultSet.getString("info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
             domains.add(new Domain("info", topLevelDomain, destination));
         }
 
         domains.add(new Domain("info", "oac", Config.getInfoSite()));
+        domains.add(new Domain(Config.getInterfaceSiteName(), "oac", Config.getInterfaceSiteDestination()));
         return domains;
     }
 }
