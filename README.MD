@@ -8,7 +8,6 @@ feel free to join our Discord and ask for help.
 Discord: https://discord.gg/ef8cyW4t7p
 
 # Bugs/Problems
-- Is a API-Key necasary for resolving Domains?
 - Update check does not work
 # In progress
 - Cleanup Code
