@@ -84,11 +84,11 @@ public class Config {
     }
 
     public static String getInfoSite() {
-        return config.getString("sites.info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+        return config.getString("sites.info");
     }
 
     public static String getInterfaceSite() {
-        return config.getString("sites.interface").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+        return config.getString("sites.interface");
     }
 
     public static int getPort() {
@@ -100,7 +100,7 @@ public class Config {
     }
 
     public static String getDatabaseHost() {
-        return config.getString("database.host").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+        return config.getString("database.host");
     }
 
     public static int getDatabasePort() {

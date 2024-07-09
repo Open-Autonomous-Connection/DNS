@@ -40,7 +40,7 @@ public class Server extends ProtocolServer {
         if (!topLevelDomainExists(topLevelDomain)) return null;
 
         ResultSet resultSet = Database.getConnection().prepareStatement("SELECT name, info FROM topleveldomains").executeQuery();
-        while (resultSet.next()) if (resultSet.getString("name").equals(topLevelDomain)) return resultSet.getString("info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");;
+        while (resultSet.next()) if (resultSet.getString("name").equals(topLevelDomain)) return resultSet.getString("info");
 
         return null;
     }

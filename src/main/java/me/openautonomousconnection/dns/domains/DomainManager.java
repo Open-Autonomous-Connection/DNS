@@ -41,7 +41,7 @@ public class DomainManager {
         while (result.next()) {
             String name = result.getString("name");
             String topLevelDomain = result.getString("topleveldomain");
-            String destination = result.getString("destination").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+            String destination = result.getString("destination");
             domains.add(new Domain(name, topLevelDomain, destination));
         }
 
