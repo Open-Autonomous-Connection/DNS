@@ -76,7 +76,7 @@ public class Config {
         if (!config.isSet("sites.interface")) config.set("sites.interface", ip);
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
         if (!config.isSet("database.port")) config.set("database.port", 3306);
-        if (!config.isSet("database.name")) config.set("database.name", "open_autonomous_connection");
+        if (!config.isSet("database.name")) config.set("database.name", "my_db");
         if (!config.isSet("database.username")) config.set("database.username", "my_username");
         if (!config.isSet("database.password")) config.set("database.password", "my_password");
 

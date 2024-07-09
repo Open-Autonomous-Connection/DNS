@@ -39,14 +39,14 @@ public class Main {
             if (!version.equalsIgnoreCase(Files.readString(Path.of(Main.class.getResource("../../../version.txt").toURI())))) {
                 System.out.println();
                 System.out.println("===============================================");
-                System.out.println("IMPORTANT: A NEW VERSION IS PUBLISHED ON GITHUB");
+                System.out.println("IMPORTANT: A NEW SERVER VERSION IS PUBLISHED ON GITHUB");
                 System.out.println("===============================================");
                 System.out.println();
             }
         } catch (IOException | URISyntaxException exception) {
             System.out.println();
             System.out.println("===============================================");
-            System.out.println("IMPORTANT: VERSION CHECK COULD NOT COMPLETED! VISIT OUR GITHUB");
+            System.out.println("IMPORTANT: SERVER VERSION CHECK COULD NOT COMPLETED! VISIT OUR GITHUB");
             System.out.println("https://github.com/Open-Autonomous-Connection");
             System.out.println("===============================================");
             System.out.println();
@@ -66,8 +66,9 @@ public class Main {
         try {
             protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server(Config.getPingTimeSeconds()));
             protocolBridge.getProtocolServer().setProtocolBridge(protocolBridge);
-
+            protocolBridge.getProtocolServer().getServer().getEventManager().registerListener(ServerEventListener.class);
             protocolBridge.getProtocolServer().startServer();
+            System.out.println();
         } catch (IOException | InterruptedException | InvocationTargetException | NoSuchMethodException |
                  InstantiationException | IllegalAccessException exception) {
             exception.printStackTrace();
