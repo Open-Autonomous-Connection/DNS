@@ -42,7 +42,7 @@ public class DomainManager {
             String name = result.getString("name");
             String topLevelDomain = result.getString("topleveldomain");
             String destination = result.getString("destination");
-            domains.add(new Domain(name, topLevelDomain, destination));
+            domains.add(new Domain(name, topLevelDomain, destination, ""));
         }
 
         return domains;
