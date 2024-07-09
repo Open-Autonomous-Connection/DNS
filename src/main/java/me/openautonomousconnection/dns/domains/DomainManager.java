@@ -22,24 +22,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class DomainManager {
-    public static final Pattern DOMAIN_PATTERN = Pattern.compile("^(?!-)[A-Za-z0-9-]{1,63}(?<!-)$");
-
-    public static boolean domainExists(RequestDomain domain) throws SQLException {
-        if (domain.name.equalsIgnoreCase("info")) return true;
-        for (Domain registeredDomain : getDomains())
-            if (registeredDomain.name.equalsIgnoreCase(domain.name) &&
-                    registeredDomain.topLevelDomain.equalsIgnoreCase(domain.topLevelDomain)) return true;
-
-        return false;
-    }
-
-    public static boolean isValidDomain(String domainName) {
-        return DOMAIN_PATTERN.matcher(domainName).matches();
-    }
-
-    public static boolean domainExists(Domain domain) throws SQLException {
-        return domainExists(new RequestDomain(domain.name, domain.topLevelDomain));
-    }
 
     public static Domain getDomain(String name, String topLevelDomain) throws SQLException {
         for (Domain domain : getDomains())
@@ -63,15 +45,6 @@ public class DomainManager {
             domains.add(new Domain(name, topLevelDomain, destination));
         }
 
-        ResultSet resultSet = Database.getConnection().prepareStatement("SELECT name, info FROM topleveldomains").executeQuery();
-        while (resultSet.next()) {
-            String topLevelDomain = resultSet.getString("name");
-            String destination = resultSet.getString("info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
-            domains.add(new Domain("info", topLevelDomain, destination));
-        }
-
-        domains.add(new Domain("info", "oac", Config.getInfoSite()));
-        domains.add(new Domain(Config.getInterfaceSiteName(), "oac", Config.getInterfaceSiteDestination()));
         return domains;
     }
 }

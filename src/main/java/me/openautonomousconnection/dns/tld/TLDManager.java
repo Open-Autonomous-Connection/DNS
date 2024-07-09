@@ -19,17 +19,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class TLDManager {
-    public static final Pattern TOP_LEVEL_DOMAIN_PATTERN = Pattern.compile("^[A-Za-z]{2,6}$");
-
-    public static boolean isValidTopLevelDomain(String tld) {
-        return TOP_LEVEL_DOMAIN_PATTERN.matcher(tld).matches();
-    }
-
-    public static boolean topLevelDomainExists(String topLevelDomain) throws SQLException {
-        if (topLevelDomain.equalsIgnoreCase("oac")) return true;
-        return getTopLevelDomains().contains(topLevelDomain);
-    }
-
     public static List<String> getTopLevelDomains() throws SQLException {
         List<String> tlds = new ArrayList<>();
 

@@ -10,8 +10,11 @@ package me.openautonomousconnection.dns.utils;
 
 import me.finn.unlegitlibrary.file.ConfigurationManager;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,6 +61,11 @@ public class Config {
     private static File configFile = new File("./config.txt");
     private static ConfigurationManager config;
     public static void init() throws IOException {
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+
+        String ip = in.readLine();
+
         if (!configFile.exists()) configFile.createNewFile();
         config = new ConfigurationManager(configFile);
         config.loadProperties();
@@ -65,8 +73,7 @@ public class Config {
         if (!config.isSet("port")) config.set("port", 9382);
         if (!config.isSet("ping_time_seconds")) config.set("ping_time_seconds", 10);
         if (!config.isSet("sites.info")) config.set("info_site", "DNS SERVER NEED A INFO SITE!");
-        if (!config.isSet("sites.interface.name")) config.set("sites.interface.name", "ONLY NAME, NO TOP LEVEL DOMAIN!");
-        if (!config.isSet("sites.interface.destination")) config.set("sites.interface.destination", "127.0.0.1");
+        if (!config.isSet("sites.interface")) config.set("sites.interface", ip);
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
         if (!config.isSet("database.port")) config.set("database.port", 3306);
         if (!config.isSet("database.name")) config.set("database.name", "open_autonomous_connection");
@@ -80,12 +87,8 @@ public class Config {
         return config.getString("sites.info").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
     }
 
-    public static String getInterfaceSiteName() {
-        return config.getString("sites.interface.name");
-    }
-
-    public static String getInterfaceSiteDestination() {
-        return config.getString("sites.interface.destination").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
+    public static String getInterfaceSite() {
+        return config.getString("sites.interface").replace("localhost", "127.0.0.1").replace("0", "127.0.0.1");
     }
 
     public static int getPort() {
