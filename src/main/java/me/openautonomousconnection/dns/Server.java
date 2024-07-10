@@ -21,10 +21,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class Server extends ProtocolServer {
-    public Server(int timeoutInSeconds) throws IOException, InterruptedException {
-        super(timeoutInSeconds);
-    }
-
     @Override
     public List<Domain> getDomains() throws SQLException {
         return DomainManager.getDomains();

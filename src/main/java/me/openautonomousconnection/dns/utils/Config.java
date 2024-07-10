@@ -71,7 +71,6 @@ public class Config {
         config.loadProperties();
 
         if (!config.isSet("port")) config.set("port", 9382);
-        if (!config.isSet("ping_time_seconds")) config.set("ping_time_seconds", 10);
         if (!config.isSet("sites.info")) config.set("sites.info", "DNS SERVER NEED A INFO SITE!");
         if (!config.isSet("sites.interface")) config.set("sites.interface", ip);
         if (!config.isSet("database.host")) config.set("database.host", "127.0.0.1");
@@ -93,10 +92,6 @@ public class Config {
 
     public static int getPort() {
         return config.getInt("port");
-    }
-
-    public static int getPingTimeSeconds() {
-        return config.getInt("ping_time_seconds");
     }
 
     public static String getDatabaseHost() {

@@ -64,7 +64,7 @@ public class Main {
         protocolSettings.port = Config.getPort();
 
         try {
-            protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server(Config.getPingTimeSeconds()));
+            protocolBridge = new ProtocolBridge(ProtocolVersion.PV_1_0_0, protocolSettings, new Server());
             protocolBridge.getProtocolServer().setProtocolBridge(protocolBridge);
             protocolBridge.getProtocolServer().getServer().getEventManager().registerListener(ServerEventListener.class);
             protocolBridge.getProtocolServer().startServer();
