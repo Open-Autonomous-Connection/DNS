@@ -13,5 +13,3 @@ Discord: https://discord.gg/ef8cyW4t7p
 - Cleanup Code
 # TODO
 - Subdomains
-- Fragments
-- Query
