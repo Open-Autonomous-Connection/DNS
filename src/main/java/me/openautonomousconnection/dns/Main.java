@@ -18,37 +18,39 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Main {
     public static ProtocolBridge protocolBridge;
 
     public static void main(String[] args) {
         try {
-            URL oracle = new URL("https://raw.githubusercontent.com/Open-Autonomous-Connection/dns/master/src/resources/version.txt");
+            URL oracle = new URI("https://raw.githubusercontent.com/Open-Autonomous-Connection/dns/master/src/resources/version.txt").toURL();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));
-            String version = "";
+            StringBuilder version = new StringBuilder();
             String inputLine;
-            while ((inputLine = in.readLine()) != null) version += inputLine;
+            while ((inputLine = in.readLine()) != null) version.append(inputLine);
 
-            if (!version.equalsIgnoreCase(Files.readString(Path.of(Main.class.getResource("../../../version.txt").toURI())))) {
+            if (!version.toString().equalsIgnoreCase(Files.readString(Path.of(Objects.requireNonNull(Main.class.getResource("../../../version.txt")).toURI())))) {
                 System.out.println();
-                System.out.println("===============================================");
+                System.out.println("======================================================");
                 System.out.println("IMPORTANT: A NEW SERVER VERSION IS PUBLISHED ON GITHUB");
-                System.out.println("===============================================");
+                System.out.println("======================================================");
                 System.out.println();
             }
         } catch (IOException | URISyntaxException exception) {
             System.out.println();
-            System.out.println("===============================================");
+            System.out.println("=====================================================================");
             System.out.println("IMPORTANT: SERVER VERSION CHECK COULD NOT COMPLETED! VISIT OUR GITHUB");
-            System.out.println("https://github.com/Open-Autonomous-Connection");
-            System.out.println("===============================================");
+            System.out.println("            https://github.com/Open-Autonomous-Connection            ");
+            System.out.println("=====================================================================");
             System.out.println();
         }
 

@@ -10,6 +10,5 @@ Discord: https://discord.gg/ef8cyW4t7p
 # Bugs/Problems
 - Update check does not work
 # In progress
-- Cleanup Code
 # TODO
 - Subdomains

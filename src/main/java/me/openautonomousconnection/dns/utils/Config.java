@@ -58,11 +58,11 @@ public class Config {
         return Integer.parseInt(result.getString("value")); // -1 = Endless
     }
 
-    private static File configFile = new File("./config.txt");
+    private static final File configFile = new File("./config.txt");
     private static ConfigurationManager config;
     public static void init() throws IOException {
-        URL whatismyip = new URL("http://checkip.amazonaws.com");
-        BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+        URL whatIsMyIp = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(whatIsMyIp.openStream()));
 
         String ip = in.readLine();
 

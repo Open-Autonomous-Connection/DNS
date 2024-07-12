@@ -8,14 +8,11 @@
 
 package me.openautonomousconnection.dns;
 
-import me.openautonomousconnection.dns.domains.DomainManager;
-import me.openautonomousconnection.dns.tld.TLDManager;
 import me.openautonomousconnection.dns.utils.Config;
 import me.openautonomousconnection.dns.utils.Database;
 import me.openautonomousconnection.protocol.domain.Domain;
 import me.openautonomousconnection.protocol.side.ProtocolServer;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +25,7 @@ public class Server extends ProtocolServer {
 
     @Override
     public List<String> getTopLevelDomains() throws SQLException {
-        return TLDManager.getTopLevelDomains();
+        return DomainManager.getTopLevelDomains();
     }
 
     @Override

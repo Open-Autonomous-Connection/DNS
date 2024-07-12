@@ -15,8 +15,6 @@ import me.finn.unlegitlibrary.network.system.server.events.client.state.S_Client
 import me.openautonomousconnection.protocol.events.v1_0_0.DomainPacketReceivedEvent;
 import me.openautonomousconnection.protocol.events.v1_0_0.PingPacketReceivedEvent;
 
-import java.util.Formatter;
-
 public class ServerEventListener extends EventListener {
     @Listener
     public void onConnect(S_ClientConnectedEvent event) {
