@@ -10,21 +10,21 @@ package me.openautonomousconnection.dns;
 
 import me.finn.unlegitlibrary.event.EventListener;
 import me.finn.unlegitlibrary.event.Listener;
-import me.finn.unlegitlibrary.network.system.server.events.client.state.S_ClientConnectedEvent;
-import me.finn.unlegitlibrary.network.system.server.events.client.state.S_ClientDisconnectedEvent;
+import me.finn.unlegitlibrary.network.system.server.events.state.connection.S_ConnectionHandlerConnectedEvent;
+import me.finn.unlegitlibrary.network.system.server.events.state.connection.S_ConnectionHandlerDisconnectedEvent;
 import me.openautonomousconnection.protocol.events.v1_0_0.DomainPacketReceivedEvent;
 import me.openautonomousconnection.protocol.events.v1_0_0.PingPacketReceivedEvent;
 
 public class ServerEventListener extends EventListener {
     @Listener
-    public void onConnect(S_ClientConnectedEvent event) {
-        System.out.println("New client connected. ID: " + event.clientHandler.getClientID());
+    public void onConnect(S_ConnectionHandlerConnectedEvent event) {
+        System.out.println("New client connected. ID: " + event.connectionHandler.getClientID());
         System.out.println();
     }
 
     @Listener
-    public void onDisconnect(S_ClientDisconnectedEvent event) {
-        System.out.println("Client disconnected. ID: " + event.clientHandler.getClientID());
+    public void onDisconnect(S_ConnectionHandlerDisconnectedEvent event) {
+        System.out.println("Client disconnected. ID: " + event.connectionHandler.getClientID());
         System.out.println();
     }
 
