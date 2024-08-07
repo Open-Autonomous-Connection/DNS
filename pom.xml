@@ -17,15 +17,15 @@
 
     <repositories>
         <repository>
-            <id>oac-github</id>
-            <url>https://maven.pkg.github.com/open-autonomous-connection/protocol</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/unlegitdqrk/unlegitlibrary</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
         <repository>
-            <id>unlegit-github</id>
-            <url>https://maven.pkg.github.com/unlegitdqrk/unlegitlibrary</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/open-autonomous-connection/protocol</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>me.finn.unlegitlibrary</groupId>
             <artifactId>unlegitlibrary</artifactId>
-            <version>1.3</version>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>me.openautonomousconnection.protocol</groupId>
