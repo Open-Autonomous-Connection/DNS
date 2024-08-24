@@ -8,6 +8,8 @@
 
 package me.openautonomousconnection.dns;
 
+import me.finn.unlegitlibrary.addon.AddonLoader;
+import me.finn.unlegitlibrary.addon.impl.AddonInfo;
 import me.openautonomousconnection.dns.utils.Config;
 import me.openautonomousconnection.dns.utils.Database;
 import me.openautonomousconnection.protocol.ProtocolBridge;
@@ -15,6 +17,7 @@ import me.openautonomousconnection.protocol.ProtocolSettings;
 import me.openautonomousconnection.protocol.ProtocolVersion;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +31,9 @@ import java.util.Objects;
 
 public class Main {
     public static ProtocolBridge protocolBridge;
+    public static AddonLoader addonLoader;
+
+    public static final File modulesFolder = new File("modules");
 
     public static void main(String[] args) {
         try {
@@ -85,5 +91,20 @@ public class Main {
                 exception.printStackTrace();
             }
         }));
+
+        addonLoader = new AddonLoader();
+
+        try {
+            addonLoader.loadAddonsFromDirectory(modulesFolder);
+            addonLoader.getLoadedAddons().forEach(addon -> {
+                if (addon.isEnabled()) return;
+                AddonInfo info = addon.getAddonInfo();
+                System.out.println("Enabling Addon '" + info.getName() + " v" + info.getVersion() + "' by " + info.getAuthor() + "...");
+                addon.enable();
+                System.out.println("Addon '" + info.getName() + " v" + info.getVersion() + "' enabled.");
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }
