@@ -58,7 +58,7 @@ public class Config {
         return Integer.parseInt(result.getString("value")); // -1 = Endless
     }
 
-    private static final File configFile = new File("./config.txt");
+    private static final File configFile = new File("./config.properties");
     private static ConfigurationManager config;
     public static void init() throws IOException {
         URL whatIsMyIp = new URL("http://checkip.amazonaws.com");
